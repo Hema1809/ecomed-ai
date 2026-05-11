@@ -1,8 +1,10 @@
 streamlit
 pandas
 plotly
-pymongo
 prophet
 fpdf
 streamlit-option-menu
+streamlit-extras
+streamlit-folium
+folium
 numpy
