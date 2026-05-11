@@ -7,6 +7,7 @@ from fpdf import FPDF
 from streamlit_option_menu import option_menu
 import random
 import numpy as np
+from streamlit_extras.metric_cards import style_metric_cards
 
 # =====================================================
 # PAGE CONFIG
@@ -17,6 +18,8 @@ st.set_page_config(
     page_icon="🌿",
     layout="wide"
 )
+
+#st.image("logo.jpg", width=120)
 
 # =====================================================
 # PREMIUM UI
@@ -76,21 +79,47 @@ section[data-testid="stSidebar"] * {
 """, unsafe_allow_html=True)
 
 # =====================================================
-# LOGIN + ROLE SWITCHING SYSTEM
+# LOGIN SYSTEM
 # =====================================================
+
+users = {
+
+    "admin": {
+        "password": "admin123",
+        "role": "Admin"
+    },
+
+    "doctor": {
+        "password": "doctor123",
+        "role": "Doctor"
+    },
+
+    "inventory": {
+        "password": "inventory123",
+        "role": "Inventory Manager"
+    },
+
+    "officer": {
+        "password": "officer123",
+        "role": "Sustainability Officer"
+    }
+
+}
+
+# SESSION STATES
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-if "role" not in st.session_state:
-    st.session_state.role = "Admin"
-
 if "username" not in st.session_state:
     st.session_state.username = ""
 
-# -----------------------------------------------------
+if "role" not in st.session_state:
+    st.session_state.role = ""
+
+# =====================================================
 # LOGIN PAGE
-# -----------------------------------------------------
+# =====================================================
 
 if not st.session_state.logged_in:
 
@@ -102,40 +131,36 @@ if not st.session_state.logged_in:
 
     st.markdown("---")
 
-    username = st.text_input(
-        "👤 Username"
-    )
+    username = st.text_input("👤 Username")
 
     password = st.text_input(
         "🔑 Password",
         type="password"
     )
 
-    role = st.selectbox(
-        "🩺 Select Role",
-        [
-            "Admin",
-            "Doctor",
-            "Inventory Manager",
-            "Sustainability Officer"
-        ]
-    )
-
     if st.button("🚀 Login"):
 
-        if username and password:
+        if username in users:
 
-            st.session_state.logged_in = True
-            st.session_state.role = role
-            st.session_state.username = username
+            if password == users[username]["password"]:
 
-            st.rerun()
+                st.session_state.logged_in = True
+
+                st.session_state.username = username
+
+                st.session_state.role = users[username]["role"]
+
+                st.success("Login Successful")
+
+                st.rerun()
+
+            else:
+
+                st.error("Wrong Password")
 
         else:
 
-            st.error(
-                "Please enter username and password."
-            )
+            st.error("User not found")
 
     st.stop()
 
@@ -378,6 +403,8 @@ if selected == "Dashboard":
         "Carbon Prevented",
         f"{carbon_saved:.0f} kg CO₂"
     )
+
+    style_metric_cards()
 
     # =================================================
     # NOTIFICATIONS
