@@ -1,0 +1,8 @@
+streamlit
+pandas
+plotly
+pymongo
+prophet
+fpdf
+streamlit-option-menu
+numpy
