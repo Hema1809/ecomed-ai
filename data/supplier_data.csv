@@ -1,0 +1,9 @@
+Supplier,Item,Cost_per_Unit,Carbon_per_Unit
+Supplier A,Gloves,8,0.02
+Supplier B,Gloves,8.5,0.01
+Supplier C,PPE Kits,120,0.09
+Supplier D,PPE Kits,130,0.04
+Supplier E,Masks,5,0.03
+Supplier F,Masks,6,0.01
+Supplier G,Sanitizers,50,0.05
+Supplier H,Sanitizers,60,0.02
