@@ -325,9 +325,9 @@ with st.sidebar:
 # DATABASE
 # =====================================================
 
-client = MongoClient("mongodb://localhost:27017/")
+client = None
 
-db = client["ecomed_ai"]
+db = None
 
 # =====================================================
 # LOAD DATA
